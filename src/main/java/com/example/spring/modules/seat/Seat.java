@@ -1,5 +1,7 @@
-package com.example.spring.entity;
+package com.example.spring.modules.seat;
 
+import com.example.spring.utils.BaseEntity;
+import com.example.spring.modules.studio.Studio;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "seats")
 @Where(clause = "deleted_date is null")
-public class Seat extends BaseEntity{
+public class Seat extends BaseEntity {
     @Column(name = "studio_code", nullable = false)
     private String studioCode;
 

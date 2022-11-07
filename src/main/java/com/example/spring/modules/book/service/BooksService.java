@@ -1,16 +1,13 @@
-package com.example.spring.service;
+package com.example.spring.modules.book.service;
 
-import com.example.spring.entity.Film;
-import com.example.spring.entity.User;
-import com.example.spring.model.ModelResponse;
+import com.example.spring.modules.book.Book;
 
-import java.util.List;
 import java.util.Map;
 
-public interface FilmsService {
-    Map save(Film request);
+public interface BooksService {
+    Map save(Book request);
 
-    Map update(Film request);
+    Map update(Book request);
 
     Map delete(Long id);
 

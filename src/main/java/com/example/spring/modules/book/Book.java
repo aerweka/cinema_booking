@@ -1,5 +1,6 @@
-package com.example.spring.entity;
+package com.example.spring.modules.book;
 
+import com.example.spring.utils.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "books")
 @Where(clause = "deleted_date is null")
-public class Book extends BaseEntity{
+public class Book extends BaseEntity {
     @Column(name = "book_date", nullable = false)
     private LocalDate bookDate;
 

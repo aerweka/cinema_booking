@@ -1,5 +1,6 @@
-package com.example.spring.entity;
+package com.example.spring.modules.user;
 
+import com.example.spring.utils.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;

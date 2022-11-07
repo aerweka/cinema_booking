@@ -1,5 +1,7 @@
-package com.example.spring.entity;
+package com.example.spring.modules.film;
 
+import com.example.spring.utils.BaseEntity;
+import com.example.spring.modules.schedule.Schedule;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -12,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "films")
 @Where(clause = "deleted_date is null")
-public class Film extends BaseEntity{
+public class Film extends BaseEntity {
     @Column(name = "code", nullable = false)
     private String code;
 

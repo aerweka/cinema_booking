@@ -1,9 +1,7 @@
-package com.example.spring.service;
+package com.example.spring.modules.user.service;
 
-import com.example.spring.entity.User;
-import com.example.spring.model.ModelResponse;
+import com.example.spring.modules.user.User;
 
-import java.util.List;
 import java.util.Map;
 
 public interface UsersService {

@@ -1,4 +1,4 @@
-package com.example.spring.model;
+package com.example.spring.utils;
 
 import lombok.Getter;
 import lombok.Setter;

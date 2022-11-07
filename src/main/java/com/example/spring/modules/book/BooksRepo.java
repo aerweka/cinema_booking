@@ -1,6 +1,5 @@
-package com.example.spring.repository;
+package com.example.spring.modules.book;
 
-import com.example.spring.entity.Film;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -10,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FilmsRepo extends PagingAndSortingRepository<Film, Long>, JpaSpecificationExecutor<Film> {
+public interface BooksRepo extends PagingAndSortingRepository<Book, Long>, JpaSpecificationExecutor<Book> {
     /*
 
    selet * from barang;
@@ -25,6 +24,9 @@ public interface FilmsRepo extends PagingAndSortingRepository<Film, Long>, JpaSp
     2. JPQL : JPA query : yang di slect adalah nama class variable
 
      */
-    @Query(value = "select c from Film c WHERE c.id = :idbarang")
-    Film getbyIDByJPQL(@Param("idbarang") Long idbebas);
+    @Query(value = "select c from Book c WHERE c.id = :idbarang")
+    Book getbyIDByJPQL(@Param("idbarang") Long idbebas);
+
+    @Query(value = "select c from Book c ")
+    public Page<Book> getListData(Pageable pageable);
 }

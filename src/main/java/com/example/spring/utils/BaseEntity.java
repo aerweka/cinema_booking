@@ -1,4 +1,4 @@
-package com.example.spring.entity;
+package com.example.spring.utils;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,8 +1,6 @@
-package com.example.spring.controller.api;
+package com.example.spring.modules.user;
 
-import com.example.spring.entity.User;
-import com.example.spring.repository.UsersRepo;
-import com.example.spring.service.UsersService;
+import com.example.spring.modules.user.service.UsersService;
 import com.example.spring.utils.Response;
 import com.example.spring.utils.SimpleStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

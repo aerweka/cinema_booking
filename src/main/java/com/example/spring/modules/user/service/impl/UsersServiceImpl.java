@@ -1,18 +1,17 @@
-package com.example.spring.service.impl;
+package com.example.spring.modules.user.service.impl;
 
-import com.example.spring.entity.User;
-import com.example.spring.model.ModelResponse;
-import com.example.spring.repository.UsersRepo;
-import com.example.spring.service.UsersService;
+import com.example.spring.modules.user.User;
+import com.example.spring.modules.user.UsersRepo;
+import com.example.spring.modules.user.service.UsersService;
 import com.example.spring.utils.Config;
 import com.example.spring.utils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
 
 @Service
 public class UsersServiceImpl implements UsersService {
