@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/films")
+@RequestMapping("/seats")
 public class SeatsController {
     @Autowired
     private Response response;
@@ -32,19 +32,19 @@ public class SeatsController {
         return new ResponseEntity<Map>(seatsService.save(film), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{film_id}")
-    public ResponseEntity<Map> update(@PathVariable("film_id") Long id, @RequestBody Seat film) {
+    @PutMapping(value = "/update/{seat_id}")
+    public ResponseEntity<Map> update(@PathVariable("seat_id") Long id, @RequestBody Seat film) {
         return new ResponseEntity<Map>(seatsService.update(film), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{film_id}"})
-    public ResponseEntity<Map> delete(@PathVariable("film_id") Long id) throws Exception {
+    @DeleteMapping(value = {"/delete/{seat_id}"})
+    public ResponseEntity<Map> delete(@PathVariable("seat_id") Long id) throws Exception {
         return new ResponseEntity<Map>(seatsService.delete(id), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/{id}", "/{id}/"})
-    public ResponseEntity<Map> getId(@PathVariable(value = "id") Long filmId) throws Exception {
-        return new ResponseEntity<Map>(seatsService.getById(filmId), HttpStatus.OK);
+    public ResponseEntity<Map> getId(@PathVariable(value = "id") Long seatId) throws Exception {
+        return new ResponseEntity<Map>(seatsService.getById(seatId), HttpStatus.OK);
     }
 
     @GetMapping("/list")

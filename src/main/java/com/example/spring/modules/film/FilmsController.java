@@ -1,8 +1,6 @@
 package com.example.spring.modules.film;
 
-import com.example.spring.modules.book.Book;
-import com.example.spring.modules.book.BooksRepo;
-import com.example.spring.modules.book.service.BooksService;
+import com.example.spring.modules.film.service.FilmsService;
 import com.example.spring.utils.Response;
 import com.example.spring.utils.SimpleStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,42 +20,42 @@ public class FilmsController {
     private Response response;
 
     @Autowired
-    public BooksRepo bookRepo;
+    public FilmsRepo filmsRepo;
 
     SimpleStringUtils simpleStringUtils = new SimpleStringUtils();
 
     @Autowired
-    public BooksService bookService;
+    public FilmsService filmsService;
 
-    @PostMapping(value = {"/save", "/save/"})
-    public ResponseEntity<Map> save(@RequestBody Book film) {
-        return new ResponseEntity<Map>(bookService.save(film), HttpStatus.OK);
+    @PostMapping("/")
+    public ResponseEntity<Map> save(@RequestBody Film film) {
+        return new ResponseEntity<Map>(filmsService.save(film), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{film_id}")
-    public ResponseEntity<Map> update(@PathVariable("film_id") Long id, @RequestBody Book film) {
-        return new ResponseEntity<Map>(bookService.update(film), HttpStatus.OK);
+    @PutMapping(value = "/")
+    public ResponseEntity<Map> update(@RequestBody Film film) {
+        return new ResponseEntity<Map>(filmsService.update(film), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{film_id}"})
+    @DeleteMapping(value = {"/{film_id}"})
     public ResponseEntity<Map> delete(@PathVariable("film_id") Long id) throws Exception {
-        return new ResponseEntity<Map>(bookService.delete(id), HttpStatus.OK);
+        return new ResponseEntity<Map>(filmsService.delete(id), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/{id}", "/{id}/"})
     public ResponseEntity<Map> getId(@PathVariable(value = "id") Long bookId) throws Exception {
-        return new ResponseEntity<Map>(bookService.getById(bookId), HttpStatus.OK);
+        return new ResponseEntity<Map>(filmsService.getById(bookId), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<Map> listSupplier(
+    @GetMapping("/")
+    public ResponseEntity<Map> get(
             @RequestParam() Integer page,
             @RequestParam() Integer size,
             @RequestParam(required = false) String orderby,
             @RequestParam(required = false) String ordertype) {
         Pageable show_data = simpleStringUtils.getShort(orderby, ordertype, page, size);
-        Page<Book> list = null;
-        list = bookRepo.getListData(show_data);
+        Page<Film> list = null;
+        list = filmsRepo.getListData(show_data);
         return new ResponseEntity<Map>(response.sukses(list), new HttpHeaders(), HttpStatus.OK);
     }
 

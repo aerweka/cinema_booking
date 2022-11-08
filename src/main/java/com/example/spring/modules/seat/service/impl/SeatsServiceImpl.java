@@ -55,8 +55,7 @@ public class SeatsServiceImpl implements SeatsService {
             }
             //do update
             chekData.setStudioCode(request.getStudioCode());
-            chekData.setCode(request.getCode());
-            chekData.setIsPlayed(request.getIsPlayed());
+            chekData.setIsBooked(request.getIsBooked());
 
             //langsung update
             Seat doSave = seatsRepo.save(chekData);

@@ -20,14 +20,14 @@ public class UsersController {
     private Response response;
 
     @Autowired
-    public UsersRepo usersRepo;
+    private UsersRepo usersRepo;
 
     SimpleStringUtils simpleStringUtils = new SimpleStringUtils();
 
     @Autowired
-    public UsersService usersService;
+    private UsersService usersService;
 
-    @PostMapping(value = {"/save", "/save/"})
+    @PostMapping(value = {"/" })
     public ResponseEntity<Map> save(@RequestBody User user) {
         return new ResponseEntity<Map>(usersService.save(user), HttpStatus.OK);
     }

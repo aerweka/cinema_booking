@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/films")
+@RequestMapping("/books")
 public class BooksController {
     @Autowired
     private Response response;
@@ -32,13 +32,13 @@ public class BooksController {
         return new ResponseEntity<Map>(bookService.save(film), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{film_id}")
-    public ResponseEntity<Map> update(@PathVariable("film_id") Long id, @RequestBody Book film) {
+    @PutMapping(value = "/update/{book_id}")
+    public ResponseEntity<Map> update(@PathVariable("book_id") Long id, @RequestBody Book film) {
         return new ResponseEntity<Map>(bookService.update(film), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{film_id}"})
-    public ResponseEntity<Map> delete(@PathVariable("film_id") Long id) throws Exception {
+    @DeleteMapping(value = {"/delete/{book_id}"})
+    public ResponseEntity<Map> delete(@PathVariable("book_id") Long id) throws Exception {
         return new ResponseEntity<Map>(bookService.delete(id), HttpStatus.OK);
     }
 

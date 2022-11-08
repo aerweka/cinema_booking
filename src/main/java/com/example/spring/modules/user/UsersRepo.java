@@ -27,13 +27,13 @@ public interface UsersRepo extends PagingAndSortingRepository<User, Long>, JpaSp
     @Query(value = "select c from User c WHERE c.id = :idbarang", nativeQuery = false)
     User getbyIDByJPQL(@Param("idbarang") Long idbebas);
 
-    Page<User> findBySatuan(String satuan, Pageable pageable);
+//    Page<User> findBySatuan(String satuan, Pageable pageable);
 
-    Page<User> findBySatuanAndHarga(String satuan, int harga, Pageable pageable);
+//    Page<User> findBySatuanAndHarga(String satuan, int harga, Pageable pageable);
 
-    Page<User> findBySatuanAndHargaOrNama(String satuan, int harga, String nama, Pageable pageable);
+//    Page<User> findBySatuanAndHargaOrNama(String satuan, int harga, String nama, Pageable pageable);
 
-    Page<User> findBySatuanAndHargaOrNamaLike(String satuan, int harga, String nama, Pageable pageable);//
+//    Page<User> findBySatuanAndHargaOrNamaLike(String satuan, int harga, String nama, Pageable pageable);//
 
     @Query(value = "select c from User c ")
     public Page<User> getListData(Pageable pageable);

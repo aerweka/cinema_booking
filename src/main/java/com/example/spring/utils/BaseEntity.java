@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"created_at", "updated_at", "deleted_at"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"created_date", "updated_at", "deleted_at"}, allowGetters = true)
 public abstract class BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

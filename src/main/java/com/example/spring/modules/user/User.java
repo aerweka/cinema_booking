@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @Where(clause = "deleted_date is null")
 public class User extends BaseEntity {
-    @Column(name = "name", nullable = false)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Column(name = "email", nullable = false)

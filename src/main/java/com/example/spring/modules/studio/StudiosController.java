@@ -1,8 +1,6 @@
 package com.example.spring.modules.studio;
 
-import com.example.spring.modules.book.Book;
-import com.example.spring.modules.book.BooksRepo;
-import com.example.spring.modules.book.service.BooksService;
+import com.example.spring.modules.studio.service.StudiosService;
 import com.example.spring.utils.Response;
 import com.example.spring.utils.SimpleStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,37 +14,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/films")
+@RequestMapping("/studios")
 public class StudiosController {
     @Autowired
     private Response response;
 
     @Autowired
-    public BooksRepo bookRepo;
+    public StudiosRepo studiosRepo;
 
     SimpleStringUtils simpleStringUtils = new SimpleStringUtils();
 
     @Autowired
-    public BooksService bookService;
+    public StudiosService studiosService;
 
     @PostMapping(value = {"/save", "/save/"})
-    public ResponseEntity<Map> save(@RequestBody com.example.spring.modules.book.Book film) {
-        return new ResponseEntity<Map>(bookService.save(film), HttpStatus.OK);
+    public ResponseEntity<Map> save(@RequestBody Studio studio) {
+        return new ResponseEntity<Map>(studiosService.save(studio), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{film_id}")
-    public ResponseEntity<Map> update(@PathVariable("film_id") Long id, @RequestBody com.example.spring.modules.book.Book film) {
-        return new ResponseEntity<Map>(bookService.update(film), HttpStatus.OK);
+    @PutMapping(value = "/update/{studio_id}")
+    public ResponseEntity<Map> update(@PathVariable("studio_id") Long id, @RequestBody Studio studio) {
+        return new ResponseEntity<Map>(studiosService.update(studio), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{film_id}"})
-    public ResponseEntity<Map> delete(@PathVariable("film_id") Long id) throws Exception {
-        return new ResponseEntity<Map>(bookService.delete(id), HttpStatus.OK);
+    @DeleteMapping(value = {"/delete/{studio_id}"})
+    public ResponseEntity<Map> delete(@PathVariable("studio_id") Long id) throws Exception {
+        return new ResponseEntity<Map>(studiosService.delete(id), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/{id}", "/{id}/"})
     public ResponseEntity<Map> getId(@PathVariable(value = "id") Long bookId) throws Exception {
-        return new ResponseEntity<Map>(bookService.getById(bookId), HttpStatus.OK);
+        return new ResponseEntity<Map>(studiosService.getById(bookId), HttpStatus.OK);
     }
 
     @GetMapping("/list")
@@ -56,8 +54,8 @@ public class StudiosController {
             @RequestParam(required = false) String orderby,
             @RequestParam(required = false) String ordertype) {
         Pageable show_data = simpleStringUtils.getShort(orderby, ordertype, page, size);
-        Page<Book> list = null;
-        list = bookRepo.getListData(show_data);
+        Page<Studio> list = null;
+        list = studiosRepo.getListData(show_data);
         return new ResponseEntity<Map>(response.sukses(list), new HttpHeaders(), HttpStatus.OK);
     }
 
