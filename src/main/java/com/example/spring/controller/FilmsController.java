@@ -49,15 +49,16 @@ public class FilmsController {
         return new ResponseEntity<Map>(filmsService.getById(bookId), HttpStatus.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Map> get(
             @RequestParam() Integer page,
             @RequestParam() Integer size,
+            @RequestParam(required = false) Boolean isPlayed,
             @RequestParam(required = false) String orderby,
             @RequestParam(required = false) String ordertype) {
         Pageable show_data = simpleStringUtils.getShort(orderby, ordertype, page, size);
         Page<Film> list = null;
-        list = filmsRepository.getListData(show_data);
+        list = isPlayed != null && isPlayed ? filmsRepository.findByIsPlayed(isPlayed, show_data) : filmsRepository.getListData(show_data);
         return new ResponseEntity<Map>(response.sukses(list), new HttpHeaders(), HttpStatus.OK);
     }
 

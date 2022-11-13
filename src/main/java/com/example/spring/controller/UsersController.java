@@ -29,17 +29,17 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping(value = {"/" })
+    @PostMapping()
     public ResponseEntity<Map> save(@RequestBody User user) {
         return new ResponseEntity<Map>(usersService.save(user), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{user_id}")
+    @PutMapping(value = "/{user_id}")
     public ResponseEntity<Map> update(@PathVariable("user_id") Long id, @RequestBody User user) {
         return new ResponseEntity<Map>(usersService.update(user), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{user_id}"})
+    @DeleteMapping(value = {"/{user_id}"})
     public ResponseEntity<Map> delete(@PathVariable("user_id") Long id) throws Exception {
         return new ResponseEntity<Map>(usersService.delete(id), HttpStatus.OK);
     }
@@ -49,7 +49,7 @@ public class UsersController {
         return new ResponseEntity<Map>(usersService.getById(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<Map> listSupplier(
             @RequestParam() Integer page,
             @RequestParam() Integer size,
@@ -65,8 +65,8 @@ public class UsersController {
 //            list = usersRepo.findByNamaLike("%"+nama+"%",show_data);
 //        }else {
 //            // nampilkan semuanya
-//            list = usersRepo.getListData(show_data);
 //        }
+        list = usersRepository.getListData(show_data);
 
         return new ResponseEntity<Map>(response.sukses(list), new HttpHeaders(), HttpStatus.OK);
     }

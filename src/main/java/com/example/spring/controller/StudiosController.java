@@ -29,17 +29,17 @@ public class StudiosController {
     @Autowired
     public StudiosService studiosService;
 
-    @PostMapping(value = {"/save", "/save/"})
+    @PostMapping()
     public ResponseEntity<Map> save(@RequestBody Studio studio) {
         return new ResponseEntity<Map>(studiosService.save(studio), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{studio_id}")
+    @PutMapping(value = "/{studio_id}")
     public ResponseEntity<Map> update(@PathVariable("studio_id") Long id, @RequestBody Studio studio) {
         return new ResponseEntity<Map>(studiosService.update(studio), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{studio_id}"})
+    @DeleteMapping(value = {"/{studio_id}"})
     public ResponseEntity<Map> delete(@PathVariable("studio_id") Long id) throws Exception {
         return new ResponseEntity<Map>(studiosService.delete(id), HttpStatus.OK);
     }
@@ -49,7 +49,7 @@ public class StudiosController {
         return new ResponseEntity<Map>(studiosService.getById(bookId), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<Map> listSupplier(
             @RequestParam() Integer page,
             @RequestParam() Integer size,

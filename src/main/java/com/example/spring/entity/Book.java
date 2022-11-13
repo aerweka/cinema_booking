@@ -1,6 +1,7 @@
 package com.example.spring.entity;
 
 import com.example.spring.utils.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Table(name = "books")
 @Where(clause = "deleted_date is null")
 public class Book extends BaseEntity {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyy")
     @Column(name = "book_date", nullable = false)
     private LocalDate bookDate;
 

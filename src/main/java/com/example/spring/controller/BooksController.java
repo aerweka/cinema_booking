@@ -29,17 +29,17 @@ public class BooksController {
     @Autowired
     public BooksService bookService;
 
-    @PostMapping(value = {"/save", "/save/"})
+    @PostMapping()
     public ResponseEntity<Map> save(@RequestBody Book film) {
         return new ResponseEntity<Map>(bookService.save(film), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{book_id}")
+    @PutMapping(value = "/{book_id}")
     public ResponseEntity<Map> update(@PathVariable("book_id") Long id, @RequestBody Book film) {
         return new ResponseEntity<Map>(bookService.update(film), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{book_id}"})
+    @DeleteMapping(value = {"/{book_id}"})
     public ResponseEntity<Map> delete(@PathVariable("book_id") Long id) throws Exception {
         return new ResponseEntity<Map>(bookService.delete(id), HttpStatus.OK);
     }
@@ -49,7 +49,7 @@ public class BooksController {
         return new ResponseEntity<Map>(bookService.getById(bookId), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<Map> listSupplier(
             @RequestParam() Integer page,
             @RequestParam() Integer size,

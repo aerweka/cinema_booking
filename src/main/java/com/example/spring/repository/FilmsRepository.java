@@ -25,9 +25,14 @@ public interface FilmsRepository extends PagingAndSortingRepository<Film, Long>,
     2. JPQL : JPA query : yang di slect adalah nama class variable
 
      */
-    @Query(value = "select c from Studio c WHERE c.id = :idbarang")
+    @Query(value = "select c from Film c WHERE c.id = :idbarang")
     Film getbyIDByJPQL(@Param("idbarang") Long idbebas);
 
-    @Query(value = "select c from Studio c ")
+    @Query(value = "select c from Film c ")
     public Page<Film> getListData(Pageable pageable);
+
+    @Query(value = "select f from Film f where f.isPlayed = true")
+    Page<Film> findAllWhereIsPlayedIsTrue(Pageable pageable);
+
+    Page<Film> findByIsPlayed(Boolean isPlayed, Pageable pageable);
 }

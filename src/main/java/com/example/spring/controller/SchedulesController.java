@@ -29,35 +29,36 @@ public class SchedulesController {
     @Autowired
     public SchedulesService schedulesService;
 
-    @PostMapping(value = {"/save", "/save/"})
+    @PostMapping()
     public ResponseEntity<Map> save(@RequestBody Schedule schedule) {
         return new ResponseEntity<Map>(schedulesService.save(schedule), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{schedule_id}")
+    @PutMapping(value = "/{schedule_id}")
     public ResponseEntity<Map> update(@PathVariable("schedule_id") Long id, @RequestBody Schedule schedule) {
         return new ResponseEntity<Map>(schedulesService.update(schedule), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{schedule_id}"})
+    @DeleteMapping(value = {"/{schedule_id}"})
     public ResponseEntity<Map> delete(@PathVariable("schedule_id") Long id) throws Exception {
         return new ResponseEntity<Map>(schedulesService.delete(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/{id}", "/{id}/"})
+    @GetMapping("/{id}")
     public ResponseEntity<Map> getId(@PathVariable(value = "id") Long scheduleId) throws Exception {
         return new ResponseEntity<Map>(schedulesService.getById(scheduleId), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<Map> listSupplier(
             @RequestParam() Integer page,
             @RequestParam() Integer size,
+            @RequestParam(required = false) String filmCode,
             @RequestParam(required = false) String orderby,
             @RequestParam(required = false) String ordertype) {
         Pageable show_data = simpleStringUtils.getShort(orderby, ordertype, page, size);
         Page<Schedule> list = null;
-        list = schedulesRepository.getListData(show_data);
+        list = filmCode != null && !filmCode.isEmpty() ? schedulesRepository.findAllByFilmCode(filmCode, show_data) : schedulesRepository.getListData(show_data);
         return new ResponseEntity<Map>(response.sukses(list), new HttpHeaders(), HttpStatus.OK);
     }
 

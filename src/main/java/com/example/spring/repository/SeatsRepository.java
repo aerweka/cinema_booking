@@ -18,16 +18,16 @@ public interface SeatsRepository extends PagingAndSortingRepository<Seat, Long>,
      contoh : selet * from barang;
 
     */
-    @Query(value = "select * from films c WHERE c.id = :idbarang", nativeQuery = true)
+    @Query(value = "select * from seats c WHERE c.id = :idbarang", nativeQuery = true)
     Object getbyID(@Param("idbarang") Long idbebas);
 
     /*
     2. JPQL : JPA query : yang di slect adalah nama class variable
 
      */
-    @Query(value = "select c from Film c WHERE c.id = :idbarang")
+    @Query(value = "select c from Seat c WHERE c.id = :idbarang")
     Seat getbyIDByJPQL(@Param("idbarang") Long idbebas);
 
-    @Query(value = "select c from Film c ")
+    @Query(value = "select c from Seat c ")
     public Page<Seat> getListData(Pageable pageable);
 }

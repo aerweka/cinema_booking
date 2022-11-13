@@ -29,17 +29,17 @@ public class SeatsController {
     @Autowired
     public SeatsService seatsService;
 
-    @PostMapping(value = {"/save", "/save/"})
+    @PostMapping()
     public ResponseEntity<Map> save(@RequestBody Seat film) {
         return new ResponseEntity<Map>(seatsService.save(film), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update/{seat_id}")
+    @PutMapping(value = "/{seat_id}")
     public ResponseEntity<Map> update(@PathVariable("seat_id") Long id, @RequestBody Seat film) {
         return new ResponseEntity<Map>(seatsService.update(film), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = {"/delete/{seat_id}"})
+    @DeleteMapping(value = {"/{seat_id}"})
     public ResponseEntity<Map> delete(@PathVariable("seat_id") Long id) throws Exception {
         return new ResponseEntity<Map>(seatsService.delete(id), HttpStatus.OK);
     }
@@ -49,7 +49,7 @@ public class SeatsController {
         return new ResponseEntity<Map>(seatsService.getById(seatId), HttpStatus.OK);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<Map> listSupplier(
             @RequestParam() Integer page,
             @RequestParam() Integer size,

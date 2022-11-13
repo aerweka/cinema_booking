@@ -18,16 +18,18 @@ public interface SchedulesRepository extends PagingAndSortingRepository<Schedule
      contoh : selet * from barang;
 
     */
-    @Query(value = "select * from films c WHERE c.id = :idbarang", nativeQuery = true)
+    @Query(value = "select * from schedules c WHERE c.id = :idbarang", nativeQuery = true)
     Object getbyID(@Param("idbarang") Long idbebas);
 
     /*
     2. JPQL : JPA query : yang di slect adalah nama class variable
 
      */
-    @Query(value = "select c from Book c WHERE c.id = :idbarang")
+    @Query(value = "select c from Schedule c WHERE c.id = :idbarang")
     Schedule getbyIDByJPQL(@Param("idbarang") Long idbebas);
 
-    @Query(value = "select c from Book c ")
+    @Query(value = "select c from Schedule c ")
     public Page<Schedule> getListData(Pageable pageable);
+
+    Page<Schedule> findAllByFilmCode(String filmCode, Pageable pageable);
 }
