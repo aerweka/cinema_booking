@@ -17,8 +17,8 @@ public class Seat extends BaseEntity {
     @Column(name = "studio_code", nullable = false)
     private String studioCode;
 
-    @Column(name = "is_booked")
-    private Boolean isBooked;
+    @Column(name = "book_id")
+    private Long bookId;
 
     @JsonIgnore
     @ManyToOne
@@ -27,4 +27,9 @@ public class Seat extends BaseEntity {
 
     @Transient
     private Studio studioData;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "book_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Book bookRelation;
 }

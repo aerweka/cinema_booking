@@ -1,7 +1,6 @@
 package com.example.spring.entity;
 
 import com.example.spring.utils.BaseEntity;
-import com.example.spring.entity.Film;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -11,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,6 +20,9 @@ import java.time.LocalTime;
 public class Schedule extends BaseEntity {
     @Column(name = "film_code", nullable = false)
     private String filmCode;
+
+    @Column(name = "studio_code")
+    private String studioCode;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyy")
     @Column(name = "show_date", nullable = false)
@@ -39,5 +42,17 @@ public class Schedule extends BaseEntity {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "film_code", referencedColumnName = "code", insertable = false, updatable = false)
-    private Film filmByFilmCode;
+    private Film filmRelation;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "studio_code", referencedColumnName = "code", insertable = false, updatable = false)
+    private Studio studioRelation;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "scheduleRelations", fetch = FetchType.LAZY)
+    private List<Book> book;
+
+    @Transient
+    private List<Book> bookData;
 }

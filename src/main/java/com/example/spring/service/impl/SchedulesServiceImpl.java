@@ -58,6 +58,7 @@ public class SchedulesServiceImpl implements SchedulesService {
             chekData.setShowStart(request.getShowStart());
             chekData.setShowEnd(request.getShowEnd());
             chekData.setTicketPrice(request.getTicketPrice());
+            chekData.setStudioCode(request.getStudioCode());
 
             //langsung update
             Schedule doSave = schedulesRepository.save(chekData);

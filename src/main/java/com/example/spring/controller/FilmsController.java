@@ -58,7 +58,7 @@ public class FilmsController {
             @RequestParam(required = false) String ordertype) {
         Pageable show_data = simpleStringUtils.getShort(orderby, ordertype, page, size);
         Page<Film> list = null;
-        list = isPlayed != null && isPlayed ? filmsRepository.findByIsPlayed(isPlayed, show_data) : filmsRepository.getListData(show_data);
+        list = isPlayed != null ? filmsRepository.findByIsPlayed(isPlayed, show_data) : filmsRepository.getListData(show_data);
         return new ResponseEntity<Map>(response.sukses(list), new HttpHeaders(), HttpStatus.OK);
     }
 

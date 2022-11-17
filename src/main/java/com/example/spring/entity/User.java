@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -21,4 +22,7 @@ public class User extends BaseEntity {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "userRelations", fetch = FetchType.LAZY)
+    private Set<Book> bookData;
 }

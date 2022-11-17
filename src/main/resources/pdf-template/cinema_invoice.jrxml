@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b62f1c7-3b8f-4a14-bf31-9b8218aac4f4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="bookId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select b.id book_id, b.book_date, s.schedule_id, s.show_date, s.show_start, s.ticket_price, s.title, s.studio_code, u.username, st.id seat_id
+from books b join users u on b.user_id = u.id
+    join seats st on b.id = st.book_id join
+    (select s.id schedule_id, s.show_date, s.show_start, s.ticket_price, f.title, s.studio_code from schedules s join films f on s.film_code = f.code) s
+        on b.schedule_id = s.schedule_id where b.id =  $P{bookId} ]]>
+	</queryString>
+	<field name="book_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="book_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="book_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="books"/>
+	</field>
+	<field name="book_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="book_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="book_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="books"/>
+	</field>
+	<field name="schedule_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="schedule_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="schedule_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="schedules"/>
+	</field>
+	<field name="show_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="show_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="show_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="schedules"/>
+	</field>
+	<field name="show_start" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="show_start"/>
+		<property name="com.jaspersoft.studio.field.label" value="show_start"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="schedules"/>
+	</field>
+	<field name="ticket_price" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="ticket_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="ticket_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="schedules"/>
+	</field>
+	<field name="title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="title"/>
+		<property name="com.jaspersoft.studio.field.label" value="title"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="films"/>
+	</field>
+	<field name="studio_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="studio_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="studio_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="schedules"/>
+	</field>
+	<field name="username" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="username"/>
+		<property name="com.jaspersoft.studio.field.label" value="username"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="users"/>
+	</field>
+	<field name="seat_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="seat_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="seat_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="seats"/>
+	</field>
+	<pageHeader>
+		<band height="74">
+			<staticText>
+				<reportElement x="246" y="7" width="310" height="60" uuid="85a21c01-e166-4c77-9b61-e32260e32509"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="24"/>
+				</textElement>
+				<text><![CDATA[INVOICE TIKET BIOSKOP]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50">
+			<textField>
+				<reportElement x="186" y="10" width="430" height="30" uuid="d6b42b65-5606-402e-9d86-751f274a8a17"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="19" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{title}.toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="290">
+			<staticText>
+				<reportElement x="190" y="20" width="56" height="30" uuid="0226caca-e3fd-43e4-9b49-632ae495722c"/>
+				<textElement>
+					<font fontName="Calibri" size="19"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="20" width="356" height="30" uuid="9454c06e-db65-4698-83b5-0ca44c8e1694"/>
+				<textElement>
+					<font fontName="Calibri" size="19"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{show_date}.toLocalDate()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="66" width="56" height="30" uuid="56b874a2-d937-4393-99e9-844d17e5bc13"/>
+				<textElement>
+					<font fontName="Calibri" size="19"/>
+				</textElement>
+				<text><![CDATA[TIME]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="66" width="356" height="30" uuid="fc671f8b-76a4-4f8c-a5c1-7e3fc13fec14"/>
+				<textElement>
+					<font fontName="Calibri" size="19"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{show_start}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="650" y="-50" width="100" height="205" uuid="cf4d68f9-9be9-4e76-b546-74e46701161d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Calibri" size="50" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{studio_code}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="113" width="56" height="30" uuid="0a906cf5-37e3-4828-bc78-1c3945aaab48"/>
+				<textElement>
+					<font fontName="Calibri" size="19"/>
+				</textElement>
+				<text><![CDATA[SEAT]]></text>
+			</staticText>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="260" y="113" width="356" height="30" uuid="586c8086-9820-412d-a96d-13880e2c8516"/>
+				<textElement>
+					<font fontName="Calibri" size="19"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seat_id}.toString().toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -23,6 +23,6 @@ public class Film extends BaseEntity {
     @Column(name = "is_played", nullable = false)
     private Boolean isPlayed;
 
-    @OneToMany(mappedBy = "filmByFilmCode", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "filmRelation", cascade = CascadeType.ALL)
     private List<Schedule> schedulesByCode;
 }

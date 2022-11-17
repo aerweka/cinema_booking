@@ -30,8 +30,8 @@ public class BooksController {
     public BooksService bookService;
 
     @PostMapping()
-    public ResponseEntity<Map> save(@RequestBody Book film) {
-        return new ResponseEntity<Map>(bookService.save(film), HttpStatus.OK);
+    public ResponseEntity<Map> save(@RequestBody Book book) {
+        return new ResponseEntity<Map>(bookService.save(book), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{book_id}")

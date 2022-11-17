@@ -1,17 +1,22 @@
 package com.example.spring.service.impl;
 
 import com.example.spring.entity.Book;
+import com.example.spring.entity.Seat;
 import com.example.spring.repository.BooksRepository;
+import com.example.spring.repository.SeatsRepository;
 import com.example.spring.service.BooksService;
+import com.example.spring.service.InvoicesService;
 import com.example.spring.utils.Config;
 import com.example.spring.utils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -21,16 +26,35 @@ public class BooksServiceImpl implements BooksService {
     private BooksRepository booksRepository;
 
     @Autowired
+    private SeatsRepository seatsRepository;
+
+    @Autowired
     public Response response;
+
+    @Autowired
+    private InvoicesService invoicesService;
 
     @Override
     public Map save(Book request) {
         try {
-            if (request.getFilmCode() == null) {
-                return response.error("Mohon pilih film yang akan dipesan.", Config.ERROR_401);
+            if (request.getScheduleId() == null) {
+                return response.error("Mohon pilih jadwal yang akan dipesan.", Config.ERROR_401);
             }
 
             Book doSave = booksRepository.save(request);
+
+            for (Long seat : request.getSeats()) {
+                Seat existing = seatsRepository.findById(seat).orElseThrow(() -> new DataSourceLookupFailureException("Seat not found"));
+                if (existing.getBookId() == null) {
+                    existing.setBookId(doSave.getId());
+                } else {
+                    throw new Exception("Seat already booked");
+                }
+                seatsRepository.save(existing);
+            }
+
+            generateInvoice(doSave);
+
             return response.sukses(doSave);
         } catch (Exception e) {
             logger.error("Eror save,{} " + e);
@@ -50,13 +74,13 @@ public class BooksServiceImpl implements BooksService {
                 return response.error("Data tidak ditemukan", Config.ERROR_404);
             }
 
-            if (request.getFilmCode() == null) {
+            if (request.getScheduleId() == null) {
                 return response.error("Mohon pilih film yang akan dipesan.", Config.ERROR_401);
             }
             //do update
             chekData.setBookDate(LocalDate.now());
-            chekData.setStudioCode(request.getStudioCode());
-            chekData.setFilmCode(request.getFilmCode());
+            chekData.setScheduleId(request.getScheduleId());
+            chekData.setUserId(request.getUserId());
 
             //langsung update
             Book doSave = booksRepository.save(chekData);
@@ -110,7 +134,12 @@ public class BooksServiceImpl implements BooksService {
         }
     }
 
+    private void generateInvoice(Book data) throws Exception {
+        Map<String, Object> params = new HashMap<>();
+        params.put("bookId", data.getId());
 
+        invoicesService.generatePdf(params, "cinema_invoice.jrxml");
+    }
     /** versiku
      @Override public ModelResponse<List<Book>> get() throws Exception {
      List<Book> allBooks = (List<Book>) booksRepo.findAll();

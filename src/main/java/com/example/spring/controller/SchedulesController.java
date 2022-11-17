@@ -34,8 +34,8 @@ public class SchedulesController {
         return new ResponseEntity<Map>(schedulesService.save(schedule), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/{schedule_id}")
-    public ResponseEntity<Map> update(@PathVariable("schedule_id") Long id, @RequestBody Schedule schedule) {
+    @PutMapping(value = "")
+    public ResponseEntity<Map> update(@RequestBody Schedule schedule) {
         return new ResponseEntity<Map>(schedulesService.update(schedule), HttpStatus.OK);
     }
 
