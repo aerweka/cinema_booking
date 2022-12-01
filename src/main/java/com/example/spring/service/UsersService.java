@@ -1,6 +1,7 @@
 package com.example.spring.service;
 
 import com.example.spring.entity.User;
+import com.example.spring.model.Register;
 
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public interface UsersService {
 
     public Map getById(Long request);
 
-    
+    Map registerManual (Register registerModel);
     /** versiku
      ModelResponse<List<User>> get() throws Exception;
 

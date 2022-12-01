@@ -1,6 +1,9 @@
 package com.example.spring.service.impl;
 
+import com.example.spring.entity.Role;
 import com.example.spring.entity.User;
+import com.example.spring.model.Register;
+import com.example.spring.repository.RoleRepository;
 import com.example.spring.repository.UsersRepository;
 import com.example.spring.service.UsersService;
 import com.example.spring.utils.Config;
@@ -8,9 +11,12 @@ import com.example.spring.utils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -20,7 +26,18 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     public Response response;
+
+    Config config = new Config();
+
+    @Autowired
+    private PasswordEncoder encoder;
+
+//    @Autowired
+//    public TemplateResponse templateResponse;
 
     @Override
     public Map save(User request) {
@@ -107,6 +124,35 @@ public class UsersServiceImpl implements UsersService {
             logger.error("Eror save,{} " + e);
             return response.error("eror getById: " + e.getMessage(), Config.ERROR_500);
         }
+    }
+
+    @Override
+    public Map registerManual(Register registerModel) {
+        Map map = new HashMap();
+        try {
+            String[] roleNames = {"ROLE_USER", "ROLE_READ", "ROLE_WRITE"}; // admin
+            User user = new User();
+            user.setEmail(registerModel.getUsername().toLowerCase());
+            user.setUsername(registerModel.getUsername().toLowerCase());
+            user.setFullname(registerModel.getFullname());
+
+            //step 1 :
+//            user.setEnabled(false); // matikan user
+
+            String password = encoder.encode(registerModel.getPassword().replaceAll("\\s+", ""));
+            List<Role> r = roleRepository.findByNameIn(roleNames);
+
+            user.setRoles(r);
+            user.setPassword(password);
+            User obj = usersRepository.save(user);
+
+            return response.templateSukses(obj);
+
+        } catch (Exception e) {
+            logger.error("Eror registerManual=", e);
+            return response.templateEror("eror:"+e);
+        }
+
     }
 
 

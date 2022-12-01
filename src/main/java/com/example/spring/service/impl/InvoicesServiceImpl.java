@@ -44,16 +44,7 @@ public class InvoicesServiceImpl implements InvoicesService {
     public byte[] generatePdf(Map<String, Object> parameters, String reportName) throws SQLException {
         try {
             JasperReport report = JasperCompileManager.compileReport(templateDir + reportName);
-            JasperPrint jasperPrint = JasperFillManager
-                    .fillReport
-                            (report,
-                                    parameters,
-                                    jdbcTemplate.getDataSource().getConnection());
-//            JasperPrint jasperPrint = JasperFillManager
-//                    .fillReport
-//                            (reportName,
-//                                    parameters,
-//                                    dataSource.getConnection());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, jdbcTemplate.getDataSource().getConnection());
             JasperExportManager.exportReportToPdfFile(jasperPrint, outputDir + parameters.get("bookId") + "_ticket.pdf");
             byte[] result = JasperExportManager.exportReportToPdf(jasperPrint);
             return result;

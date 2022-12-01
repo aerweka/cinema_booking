@@ -39,4 +39,13 @@ public interface UsersRepository extends PagingAndSortingRepository<User, Long>,
     @Query(value = "select c from User c ")
     public Page<User> getListData(Pageable pageable);
 
+    @Query("FROM User u WHERE LOWER(u.username) = LOWER(?1)")
+    User findOneByUsername(String username);
+
+    @Query("FROM User u WHERE u.otp = ?1")
+    User findOneByOTP(String otp);
+
+    @Query("FROM User u WHERE LOWER(u.username) = LOWER(:username)")
+    User checkExistingEmail(String username);
+
 }
